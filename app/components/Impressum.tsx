@@ -21,9 +21,9 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Angaben gemäß § 5 TMG
             </p>
-            {/* TODO: Replace with registered legal name and form once confirmed by board */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: Eingetragener Firmenname und Rechtsform — z. B. &ldquo;JNK Momentum GmbH&rdquo; oder &ldquo;Jonas Kwaschik, Einzelunternehmer&rdquo;]
+            <p style={{ color: "#7878a0" }}>
+              Jonas Kwaschik<br />
+              (Einzelunternehmer, handelnd als JNK Momentum / jnklab)
             </p>
           </div>
 
@@ -31,21 +31,20 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Geschäftsadresse
             </p>
-            {/* TODO: Replace with confirmed registered business address */}
+            {/* PLACEHOLDER: Replace with confirmed business address before DNS cutover */}
             <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: Straße und Hausnummer]<br />
-              [TODO: PLZ und Ort]<br />
+              [PLACEHOLDER: Straße und Hausnummer]<br />
+              [PLACEHOLDER: PLZ und Ort]<br />
               Deutschland
             </p>
           </div>
 
           <div>
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
-              Vertreten durch
+              Inhaber
             </p>
-            {/* TODO: Replace with confirmed name of managing director (Geschäftsführer) */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: Vor- und Nachname des Geschäftsführers / Inhabers]
+            <p style={{ color: "#7878a0" }}>
+              Jonas Kwaschik
             </p>
           </div>
 
@@ -68,10 +67,10 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Handelsregister
             </p>
-            {/* TODO: Fill in once company is registered — HRB number + Registergericht */}
+            {/* PLACEHOLDER: Fill in if/when company is registered as UG or GmbH */}
             <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: Registergericht: Amtsgericht …]<br />
-              [TODO: Registernummer: HRB …]
+              Nicht eingetragen (Einzelunternehmer)<br />
+              <span style={{ fontSize: "0.8em" }}>[PLACEHOLDER: aktualisieren bei UG/GmbH-Gründung]</span>
             </p>
           </div>
 
@@ -79,9 +78,9 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Umsatzsteuer-ID
             </p>
-            {/* TODO: Fill in once VAT registration is complete */}
+            {/* PLACEHOLDER: Fill in once VAT registration is complete */}
             <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: USt-IdNr. gemäß § 27a UStG: DE…]
+              [PLACEHOLDER: USt-IdNr. gemäß § 27a UStG: DE…]
             </p>
           </div>
 
@@ -89,9 +88,10 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV
             </p>
-            {/* TODO: Confirm responsible person for editorial content */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              [TODO: Name und Anschrift der verantwortlichen Person]
+            <p style={{ color: "#7878a0" }}>
+              Jonas Kwaschik<br />
+              {/* PLACEHOLDER: Add confirmed address below once available */}
+              <span className="italic" style={{ color: "#4a4a68" }}>[PLACEHOLDER: Adresse wie oben]</span>
             </p>
           </div>
 
