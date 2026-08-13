@@ -4,9 +4,10 @@ const projects = [
     tagline: "Personal life management",
     description:
       "A personal life-management app that brings together your goals, habits, and daily rhythm. Designed for depth, not bustle.",
-    url: "https://dawn.jnklab.com",
+    url: "",
     status: "Live",
     tags: ["iOS", "Web", "Productivity"],
+    accentColor: "rgba(139, 92, 246, 0.15)",
   },
   {
     name: "HedyKnows",
@@ -16,24 +17,27 @@ const projects = [
     url: "https://hedyknows.com",
     status: "Live",
     tags: ["Education", "AI", "DE"],
+    accentColor: "rgba(16, 185, 129, 0.12)",
   },
   {
     name: "Civic Graph",
     tagline: "Open legislative knowledge graph",
     description:
       "An open knowledge graph of legislative and civic data built from primary public sources — making government data actually navigable.",
-    url: "#",
-    status: "In development",
+    url: "https://civigraph.eu",
+    status: "Live",
     tags: ["Open data", "Civic tech", "Graph"],
+    accentColor: "rgba(59, 130, 246, 0.12)",
   },
   {
     name: "Miravel",
     tagline: "German personal-finance simulator",
     description:
       "A personal-finance simulator tailored to the German financial system. Model your financial future — realistically, in your language.",
-    url: "#",
-    status: "In development",
+    url: "https://miravel.io",
+    status: "Live",
     tags: ["Fintech", "Germany", "Simulator"],
+    accentColor: "rgba(245, 158, 11, 0.12)",
   },
 ];
 
@@ -106,76 +110,91 @@ export default function Projects() {
 
         <div className="grid sm:grid-cols-2 gap-6">
           {projects.map((p, i) => {
-            const isExternal = p.url !== "#";
+            const isExternal = p.url !== "";
             const linkProps = isExternal
               ? {
                   href: p.url,
-                  target: "_blank",
+                  target: "_blank" as const,
                   rel: "noopener noreferrer",
                 }
-              : { href: "#work" };
+              : undefined;
 
             return (
               <div
                 key={p.name}
-                className={`reveal reveal-delay-${(i % 2) + 1} relative group flex flex-col p-8 rounded-2xl card-hover`}
+                className={`reveal reveal-delay-${(i % 2) + 1} relative group flex flex-col rounded-2xl card-hover overflow-hidden`}
                 style={{
                   background: "#0d0d14",
                   border: "1px solid rgba(255,255,255,0.07)",
                 }}
               >
-                {/* Top row */}
-                <div className="flex items-start justify-between mb-6">
-                  <div>
-                    <div
-                      className="text-2xl font-bold mb-1"
-                      style={{ color: "#e8e8f0" }}
-                    >
-                      {p.name}
+                {/* Cover visual placeholder — replace with branded asset from UX */}
+                <div
+                  className="w-full h-36 flex items-center justify-center"
+                  style={{
+                    background: `linear-gradient(135deg, ${p.accentColor} 0%, rgba(13,13,20,0) 100%), #0d0d14`,
+                    borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  }}
+                  aria-hidden="true"
+                >
+                  <span
+                    className="text-4xl font-bold tracking-tight opacity-10"
+                    style={{ color: "#e8e8f0", fontFamily: "var(--font-space)" }}
+                  >
+                    {p.name[0]}
+                  </span>
+                </div>
+
+                {/* Card body */}
+                <div className="flex flex-col flex-1 p-8">
+                  {/* Top row */}
+                  <div className="flex items-start justify-between mb-6">
+                    <div>
+                      <div
+                        className="text-2xl font-bold mb-1"
+                        style={{ color: "#e8e8f0" }}
+                      >
+                        {p.name}
+                      </div>
+                      <div className="text-sm" style={{ color: "#7878a0" }}>
+                        {p.tagline}
+                      </div>
                     </div>
-                    <div
-                      className="text-sm"
-                      style={{ color: "#7878a0" }}
-                    >
-                      {p.tagline}
-                    </div>
+                    <StatusBadge status={p.status} />
                   </div>
-                  <StatusBadge status={p.status} />
-                </div>
 
-                {/* Description */}
-                <p
-                  className="text-sm leading-relaxed flex-1 mb-8"
-                  style={{ color: "#9090b8" }}
-                >
-                  {p.description}
-                </p>
+                  {/* Description */}
+                  <p
+                    className="text-sm leading-relaxed flex-1 mb-8"
+                    style={{ color: "#9090b8" }}
+                  >
+                    {p.description}
+                  </p>
 
-                {/* Tags */}
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {p.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="text-xs px-2.5 py-1 rounded-full"
-                      style={{
-                        background: "rgba(255,255,255,0.04)",
-                        color: "#7878a0",
-                        border: "1px solid rgba(255,255,255,0.07)",
-                      }}
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {p.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-xs px-2.5 py-1 rounded-full"
+                        style={{
+                          background: "rgba(255,255,255,0.04)",
+                          color: "#7878a0",
+                          border: "1px solid rgba(255,255,255,0.07)",
+                        }}
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
 
-                {/* Link */}
-                <a
-                  {...linkProps}
-                  className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200"
-                  style={{ color: isExternal ? "#9b8ffd" : "#4a4a68" }}
-                >
+                  {/* Link */}
                   {isExternal ? (
-                    <>
+                    <a
+                      {...linkProps}
+                      className="inline-flex items-center gap-2 text-sm font-medium transition-colors duration-200"
+                      style={{ color: "#9b8ffd" }}
+                    >
                       Visit site
                       <svg
                         width="14"
@@ -190,11 +209,16 @@ export default function Projects() {
                       >
                         <path d="M7 17L17 7M17 7H7M17 7v10" />
                       </svg>
-                    </>
+                    </a>
                   ) : (
-                    "Coming soon"
+                    <span
+                      className="inline-flex items-center gap-2 text-sm font-medium"
+                      style={{ color: "#4a4a68" }}
+                    >
+                      Coming soon
+                    </span>
                   )}
-                </a>
+                </div>
               </div>
             );
           })}

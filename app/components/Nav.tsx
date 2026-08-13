@@ -6,7 +6,6 @@ const links = [
   { label: "Mission", href: "#mission" },
   { label: "Work", href: "#work" },
   { label: "Contact", href: "#contact" },
-  { label: "Impressum", href: "#impressum" },
 ];
 
 export default function Nav() {
@@ -32,8 +31,12 @@ export default function Nav() {
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         <a
           href="#top"
-          className="text-sm font-semibold tracking-widest uppercase"
-          style={{ color: "#e8e8f0", letterSpacing: "0.18em" }}
+          className="text-xl sm:text-2xl font-bold tracking-wide uppercase"
+          style={{
+            color: "#e8e8f0",
+            letterSpacing: "0.12em",
+            fontFamily: "var(--font-space)",
+          }}
         >
           JNK<span style={{ color: "#6d5dfc" }}>.</span>
         </a>

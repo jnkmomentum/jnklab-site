@@ -25,8 +25,8 @@ function useParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
 
     let animId: number;
     const particles: Particle[] = [];
-    const COUNT = 60;
-    const CONNECT_DIST = 130;
+    const COUNT = 160;
+    const CONNECT_DIST = 150;
 
     const resize = () => {
       canvas.width = canvas.offsetWidth;
@@ -39,10 +39,10 @@ function useParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        radius: Math.random() * 1.5 + 0.5,
-        opacity: Math.random() * 0.5 + 0.1,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        radius: Math.random() * 2 + 0.8,
+        opacity: Math.random() * 0.65 + 0.25,
       });
     }
 
@@ -69,7 +69,7 @@ function useParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < CONNECT_DIST) {
-            const alpha = ((1 - dist / CONNECT_DIST) * 0.15);
+            const alpha = ((1 - dist / CONNECT_DIST) * 0.35);
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -125,21 +125,6 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 max-w-3xl mx-auto">
-        <div
-          className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full text-xs font-medium tracking-widest uppercase"
-          style={{
-            border: "1px solid rgba(109, 93, 252, 0.3)",
-            color: "#9b8ffd",
-            background: "rgba(109, 93, 252, 0.06)",
-          }}
-        >
-          <span
-            className="w-1.5 h-1.5 rounded-full"
-            style={{ background: "#6d5dfc" }}
-          />
-          Consulting & Product Studio
-        </div>
-
         <h1
           className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6"
           style={{ fontFamily: "var(--font-inter)" }}
