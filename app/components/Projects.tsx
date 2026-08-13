@@ -4,7 +4,7 @@ const projects = [
     tagline: "Personal life management",
     description:
       "A personal life-management app that brings together your goals, habits, and daily rhythm. Designed for depth, not bustle.",
-    url: "",
+    url: "https://bydawn.app",
     status: "Live",
     tags: ["iOS", "Web", "Productivity"],
     accentColor: "rgba(139, 92, 246, 0.15)",
@@ -132,7 +132,7 @@ export default function Projects() {
                 }}
               >
                 {/* Branded cover asset (NIC-5170) — imagery pulled from each
-                    product's live site; Dawn stays an abstract graphic (no public site) */}
+                    product's live site; Dawn uses a branded abstract graphic */}
                 <div
                   className="relative w-full h-36 overflow-hidden"
                   style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
