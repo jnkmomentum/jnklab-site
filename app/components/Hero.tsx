@@ -42,8 +42,7 @@ export default function Hero() {
           className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] mb-6"
           style={{ fontFamily: "var(--font-inter)" }}
         >
-          <span style={{ color: "#e8e8f0" }}>We design,{" "}</span>
-          <br className="hidden sm:block" />
+          <span style={{ color: "#e8e8f0" }}>From idea to{" "}</span>
           <span
             style={{
               fontFamily: "var(--font-instrument)",
@@ -52,23 +51,26 @@ export default function Hero() {
             }}
             className="gradient-text"
           >
-            build
+            impact
           </span>
-          <span style={{ color: "#e8e8f0" }}>{" "}and ship.</span>
+          <span style={{ color: "#e8e8f0" }}>.</span>
         </h1>
 
         <p
           className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto mb-10"
           style={{ color: "#7878a0" }}
         >
-          JNK Momentum is a boutique studio that turns ideas into{" "}
-          <span style={{ color: "#e8e8f0" }}>real software</span> — consulting
-          engagements and owned products, shipped with intent.
+          Product innovation and consulting for early-stage teams. We help you
+          find the idea worth building — then ship the MVP that proves it.{" "}
+          <span style={{ color: "#b0b0c8" }}>
+            AI woven into how the work actually gets done, not bolted on as a
+            chatbot.
+          </span>
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="#work"
+            href="#contact"
             className="px-6 py-3 rounded-full text-sm font-medium transition-all duration-200"
             style={{
               background: "#6d5dfc",
@@ -87,10 +89,10 @@ export default function Hero() {
               (e.currentTarget as HTMLElement).style.transform = "none";
             }}
           >
-            See our work
+            Start a project
           </a>
           <a
-            href="#contact"
+            href="#work"
             className="px-6 py-3 rounded-full text-sm font-medium transition-all duration-200"
             style={{
               border: "1px solid rgba(255,255,255,0.12)",
@@ -108,7 +110,7 @@ export default function Hero() {
               (e.currentTarget as HTMLElement).style.background = "transparent";
             }}
           >
-            Get in touch
+            See our work
           </a>
         </div>
       </div>

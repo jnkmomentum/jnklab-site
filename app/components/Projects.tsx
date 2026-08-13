@@ -85,13 +85,13 @@ export default function Projects() {
             className="reveal text-xs font-medium tracking-widest uppercase mb-6"
             style={{ color: "#6d5dfc" }}
           >
-            Portfolio
+            Studio
           </div>
           <h2
             className="reveal reveal-delay-1 text-4xl sm:text-5xl font-bold leading-tight mb-6"
             style={{ color: "#e8e8f0" }}
           >
-            Things we{" "}
+            From our{" "}
             <span
               style={{
                 fontFamily: "var(--font-instrument)",
@@ -100,15 +100,14 @@ export default function Projects() {
               }}
               className="gradient-text"
             >
-              actually shipped
+              studio
             </span>
           </h2>
           <p
             className="reveal reveal-delay-2 text-lg leading-relaxed"
             style={{ color: "#7878a0" }}
           >
-            Four bets we are running — two live, two in the lab. Each one
-            represents a genuine problem we decided to solve.
+            The bets we build for ourselves.
           </p>
         </div>
 

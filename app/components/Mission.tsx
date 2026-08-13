@@ -1,19 +1,23 @@
 const values = [
   {
-    title: "Shipping is the strategy",
-    body: "We ship small, learn fast, and iterate in production. No endless planning cycles — working software is the only reliable measure of progress.",
+    title: "Impact over output",
+    body: "We measure what changed, not lines shipped.",
   },
   {
-    title: "Craft in the details",
-    body: "We care about the last 10%. Typography, motion, micro-interactions — these are not luxuries, they are signals of a team that gives a damn.",
+    title: "Speed to validation",
+    body: "Early-stage momentum beats late-stage polish.",
+  },
+  {
+    title: "Innovation with an edge",
+    body: "We hunt the non-obvious, high-leverage move.",
+  },
+  {
+    title: "AI as new work",
+    body: "Reshaping how teams operate, not decorating them with a chatbot.",
   },
   {
     title: "Honest partnership",
-    body: "We tell clients what is real. If a feature is the wrong move, we say so. Our reputation is built on advice we would give our own company.",
-  },
-  {
-    title: "Long-term thinking",
-    body: "We build software meant to last. Maintainable code, clear architecture, and documentation that does not rot — because we often maintain what we build.",
+    body: "Straight talk, shared skin in the game.",
   },
 ];
 
@@ -27,13 +31,13 @@ export default function Mission() {
             className="reveal text-xs font-medium tracking-widest uppercase mb-6"
             style={{ color: "#6d5dfc" }}
           >
-            Mission & Vision
+            What we do
           </div>
           <h2
             className="reveal reveal-delay-1 text-4xl sm:text-5xl font-bold leading-tight mb-6"
             style={{ color: "#e8e8f0" }}
           >
-            A studio that{" "}
+            Product innovation &{" "}
             <span
               style={{
                 fontFamily: "var(--font-instrument)",
@@ -42,64 +46,23 @@ export default function Mission() {
               }}
               className="gradient-text"
             >
-              moves
+              consulting
             </span>
           </h2>
           <p
             className="reveal reveal-delay-2 text-lg leading-relaxed"
             style={{ color: "#7878a0" }}
           >
-            JNK Momentum is a German consulting firm and product studio.
-            We work with focused teams who need a senior technical partner —
-            and we build our own products on the side, eating our own cooking.
+            We partner with founders and teams to find the valuable, innovative
+            thing — and get it into real users&apos; hands fast. Early-stage and MVPs
+            are our home turf: momentum and validated outcomes over polish. And
+            we rethink how people and teams work with AI, so both the product
+            and the way you build it move faster.
           </p>
         </div>
 
-        {/* Two-column intro */}
-        <div className="reveal reveal-delay-2 grid sm:grid-cols-2 gap-8 mb-20">
-          <div
-            className="p-8 rounded-2xl"
-            style={{
-              background: "#0d0d14",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
-          >
-            <h3
-              className="text-sm font-semibold tracking-widest uppercase mb-4"
-              style={{ color: "#6d5dfc" }}
-            >
-              Consulting
-            </h3>
-            <p className="text-base leading-relaxed" style={{ color: "#9090b8" }}>
-              We embed with product and engineering teams as a senior technical
-              partner. Strategy, architecture, code, delivery — whatever the
-              engagement needs. We take equity or fixed scope, always with skin
-              in the game.
-            </p>
-          </div>
-          <div
-            className="p-8 rounded-2xl"
-            style={{
-              background: "#0d0d14",
-              border: "1px solid rgba(255,255,255,0.07)",
-            }}
-          >
-            <h3
-              className="text-sm font-semibold tracking-widest uppercase mb-4"
-              style={{ color: "#6d5dfc" }}
-            >
-              Products
-            </h3>
-            <p className="text-base leading-relaxed" style={{ color: "#9090b8" }}>
-              We build and own software products. Not MVPs that gather dust —
-              real tools with real users. Each product is a bet we stand behind
-              with our own time, money, and code.
-            </p>
-          </div>
-        </div>
-
         {/* Values grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {values.map((v, i) => (
             <div
               key={v.title}

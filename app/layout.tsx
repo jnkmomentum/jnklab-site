@@ -24,16 +24,16 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "JNK Momentum — Consulting Firm & Product Studio",
+  title: "jnklab — Product innovation & consulting",
   description:
-    "JNK Momentum is a boutique consulting firm and product studio. We design, build, and ship software that moves.",
+    "Product innovation and consulting for early-stage teams. We help you find the idea worth building — then ship the MVP that proves it.",
   metadataBase: new URL("https://jnklab.com"),
   openGraph: {
-    title: "JNK Momentum — Consulting Firm & Product Studio",
+    title: "jnklab — Product innovation & consulting",
     description:
-      "We design, build, and ship software that moves. Based in Germany.",
+      "Product innovation and consulting for early-stage teams. We help you find the idea worth building — then ship the MVP that proves it.",
     url: "https://jnklab.com",
-    siteName: "JNK Momentum",
+    siteName: "jnklab",
     locale: "en_US",
     type: "website",
   },
