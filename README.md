@@ -1,36 +1,101 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# jnklab.com — JNK Momentum Portfolio Website
 
-## Getting Started
+Portfolio and company website for **JNK Momentum** at [jnklab.com](https://jnklab.com).
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, `output: export` — fully static)
+- **Tailwind CSS v4** (CSS-first configuration)
+- **TypeScript**
+- Fonts: Inter (body) + Instrument Serif (display)
+- No external animation libraries — CSS transitions + canvas particles
+
+## Local development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# → http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Production build
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build
+# Outputs static files to ./out/
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The `out/` directory contains pure HTML/CSS/JS — no Node.js process required at runtime.
 
-## Learn More
+## Deployment (VPS, nginx)
 
-To learn more about Next.js, take a look at the following resources:
+### Option A — Static files served by nginx (recommended)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Copy `out/` to the VPS:
+   ```bash
+   rsync -av --delete out/ user@vps:/var/www/jnklab.com/
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Configure nginx vhost (example):
+   ```nginx
+   server {
+       listen 80;
+       server_name jnklab.com www.jnklab.com;
 
-## Deploy on Vercel
+       root /var/www/jnklab.com;
+       index index.html;
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+       location / {
+           try_files $uri $uri/ $uri.html =404;
+       }
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+       gzip_static on;
+
+       location /_next/static/ {
+           expires 1y;
+           add_header Cache-Control "public, immutable";
+       }
+   }
+   ```
+
+3. Add TLS via Certbot:
+   ```bash
+   certbot --nginx -d jnklab.com -d www.jnklab.com
+   ```
+
+### Option B — pm2 + Next.js node server (future)
+
+If you need server features later, remove `output: 'export'` from `next.config.ts` and run:
+
+```bash
+npm run build && npm run start
+# pm2: pm2 start "npm run start" --name jnklab-site
+```
+
+Then proxy via nginx to `http://localhost:<PORT>`.
+
+## Redeploy (static)
+
+```bash
+npm run build
+rsync -av --delete out/ user@vps:/var/www/jnklab.com/
+```
+
+## Impressum / Legal TODO
+
+The Impressum section (`app/components/Impressum.tsx`) contains clearly-marked
+`[TODO]` placeholders for the following legal fields:
+
+- Registered legal name & form (Firmenname, Rechtsform)
+- Business address (Straße, PLZ, Ort)
+- Managing director name (Geschäftsführer / Inhaber)
+- Company register entry (Registergericht, HRB-Nummer)
+- VAT ID (USt-IdNr.)
+
+**Do not invent these values.** They will be confirmed by the board once
+registration is complete (tracked in NIC-5124).
+
+## Contact email
+
+Currently set to `hello@jnklab.com` throughout the site.
+Switch to a verified address once MX records are live on jnklab.com.
