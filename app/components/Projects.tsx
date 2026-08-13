@@ -26,7 +26,7 @@ const projects = [
     tagline: "Open legislative knowledge graph",
     description:
       "An open knowledge graph of legislative and civic data built from primary public sources — making government data actually navigable.",
-    url: "https://civigraph.eu",
+    url: "https://civicgraph.eu",
     status: "Live",
     tags: ["Open data", "Civic tech", "Graph"],
     accentColor: "rgba(59, 130, 246, 0.12)",
@@ -132,7 +132,8 @@ export default function Projects() {
                   border: "1px solid rgba(255,255,255,0.07)",
                 }}
               >
-                {/* Branded cover asset (NIC-5170) — abstract graphic per project */}
+                {/* Branded cover asset (NIC-5170) — imagery pulled from each
+                    product's live site; Dawn stays an abstract graphic (no public site) */}
                 <div
                   className="relative w-full h-36 overflow-hidden"
                   style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
