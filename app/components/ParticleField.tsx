@@ -39,6 +39,7 @@ const VERT = /* glsl */ `
   varying vec3  vColor;
   varying float vFocus;
   varying float vAlpha;
+  varying float vFlicker;
 
   void main() {
     vColor = aColor;
@@ -72,6 +73,15 @@ const VERT = /* glsl */ `
 
     // blurred particles are dimmer so they read as out-of-focus depth
     vAlpha = mix(0.10, 0.55, aFocus);
+
+    // --- per-particle flicker / sparkle -----------------------------------
+    // Each particle gets its own rate + phase so they shimmer independently.
+    float flickerRate  = 2.5 + aSeed * 6.0;           // 2.5–8.5 Hz
+    float flickerPhase = aSeed * 10.9956;              // spread phases
+    float rawFlicker   = 0.55 + 0.45 * sin(uTime * flickerRate + flickerPhase);
+    // Bokeh halos breathe very softly; crisp stars sparkle hard.
+    float softFlicker  = 0.88 + 0.12 * sin(uTime * flickerRate * 0.25 + flickerPhase);
+    vFlicker = mix(softFlicker, rawFlicker, aFocus);
   }
 `;
 
@@ -80,18 +90,42 @@ const FRAG = /* glsl */ `
   varying vec3  vColor;
   varying float vFocus;
   varying float vAlpha;
+  varying float vFlicker;
 
   void main() {
-    float dist = length(gl_PointCoord - vec2(0.5)) * 2.0; // 0 center .. ~1 edge
-    if (dist > 1.0) discard;
+    vec2 pc   = gl_PointCoord - vec2(0.5); // centered, range [-0.5, 0.5]
+    float dist = length(pc) * 2.0;          // 0 = center, ~1 = edge
 
-    // Crisp particles get a tight bright core; blurred ones a wide soft haze.
-    float edge = pow(1.0 - dist, mix(1.0, 3.2, vFocus));
-    float core = pow(1.0 - dist, 6.0) * vFocus; // extra sparkle on focused pts
+    if (vFocus > 0.35) {
+      // ── Crisp star particle: draw as sparkle cross (+ shape) ──────────
+      float aw = 0.065;                     // arm half-width in normalised coords
+      bool inH   = abs(pc.y) < aw;         // inside horizontal arm
+      bool inV   = abs(pc.x) < aw;         // inside vertical arm
+      bool inDot = dist < 0.38;            // small central glow disk
 
-    float alpha = (edge * 0.55 + core * 0.4) * vAlpha;
-    vec3 col = vColor + core * 0.3; // hot centre lifts toward white
-    gl_FragColor = vec4(col, alpha);
+      if (!inH && !inV && !inDot) discard;
+
+      // Arm brightness falls off along arm length away from centre
+      float armH = inH ? max(0.0, 1.0 - abs(pc.x) * 3.2) : 0.0;
+      float armV = inV ? max(0.0, 1.0 - abs(pc.y) * 3.2) : 0.0;
+      float arm  = max(armH, armV);
+
+      // Very tight, hot centre core
+      float core = pow(max(0.0, 1.0 - dist * 2.8), 3.0);
+
+      float brightness = max(arm * 0.75, core);
+      vec3  col  = vColor + core * 0.65;   // white-hot centre
+      float alpha = brightness * vAlpha * vFlicker;
+      gl_FragColor = vec4(col, alpha);
+    } else {
+      // ── Bokeh / blurred depth-of-field haze — soft circle, gentle flicker ──
+      if (dist > 1.0) discard;
+      float edge = pow(1.0 - dist, mix(1.0, 3.2, vFocus));
+      float core = pow(1.0 - dist, 6.0) * vFocus;
+      float alpha = (edge * 0.55 + core * 0.4) * vAlpha * vFlicker;
+      vec3  col  = vColor + core * 0.3;
+      gl_FragColor = vec4(col, alpha);
+    }
   }
 `;
 
