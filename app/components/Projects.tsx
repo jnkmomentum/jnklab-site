@@ -8,6 +8,7 @@ const projects = [
     status: "Live",
     tags: ["iOS", "Web", "Productivity"],
     accentColor: "rgba(139, 92, 246, 0.15)",
+    coverImage: "/covers/dawn.jpg",
   },
   {
     name: "HedyKnows",
@@ -18,6 +19,7 @@ const projects = [
     status: "Live",
     tags: ["Education", "AI", "DE"],
     accentColor: "rgba(16, 185, 129, 0.12)",
+    coverImage: "/covers/hedy.jpg",
   },
   {
     name: "Civic Graph",
@@ -28,6 +30,7 @@ const projects = [
     status: "Live",
     tags: ["Open data", "Civic tech", "Graph"],
     accentColor: "rgba(59, 130, 246, 0.12)",
+    coverImage: "/covers/civicgraph.jpg",
   },
   {
     name: "Miravel",
@@ -38,6 +41,7 @@ const projects = [
     status: "Live",
     tags: ["Fintech", "Germany", "Simulator"],
     accentColor: "rgba(245, 158, 11, 0.12)",
+    coverImage: "/covers/miravel.jpg",
   },
 ];
 
@@ -128,21 +132,28 @@ export default function Projects() {
                   border: "1px solid rgba(255,255,255,0.07)",
                 }}
               >
-                {/* Cover visual placeholder — replace with branded asset from UX */}
+                {/* Branded cover asset (NIC-5170) — abstract graphic per project */}
                 <div
-                  className="w-full h-36 flex items-center justify-center"
-                  style={{
-                    background: `linear-gradient(135deg, ${p.accentColor} 0%, rgba(13,13,20,0) 100%), #0d0d14`,
-                    borderBottom: "1px solid rgba(255,255,255,0.05)",
-                  }}
+                  className="relative w-full h-36 overflow-hidden"
+                  style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
                   aria-hidden="true"
                 >
-                  <span
-                    className="text-4xl font-bold tracking-tight opacity-10"
-                    style={{ color: "#e8e8f0", fontFamily: "var(--font-space)" }}
-                  >
-                    {p.name[0]}
-                  </span>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={p.coverImage}
+                    alt=""
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                    style={{ background: "#0d0d14" }}
+                  />
+                  {/* Bottom fade blends the cover into the card body */}
+                  <div
+                    className="absolute inset-x-0 bottom-0 h-12 pointer-events-none"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, rgba(13,13,20,0) 0%, #0d0d14 100%)",
+                    }}
+                  />
                 </div>
 
                 {/* Card body */}
