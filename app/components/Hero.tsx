@@ -12,6 +12,10 @@ export default function Hero() {
           "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(109,93,252,0.12) 0%, transparent 70%), #060609",
       }}
     >
+      {/* Northern-light aurora overlays — organic blurred blobs in top corners */}
+      <div className="absolute top-0 left-0 pointer-events-none z-[1] aurora-tl" aria-hidden="true" />
+      <div className="absolute top-0 right-0 pointer-events-none z-[1] aurora-tr" aria-hidden="true" />
+
       {/* WebGL particle field (three.js) — colorful, depth-blurred, mouse-reactive */}
       <ParticleField />
 

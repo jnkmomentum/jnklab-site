@@ -7,26 +7,39 @@ import * as THREE from "three";
  * Hero background: a colorful, depth-blurred particle field rendered in WebGL
  * (three.js) that reacts to the pointer.  Replaces the old 2D "constellation"
  * canvas.  Design goals (NIC-5168):
- *   - inspiring + colorful (brand-violet → cyan → magenta palette)
+ *   - inspiring + colorful (brand-violet + mint accent palette)
  *   - partly blurred: a subset of particles are large, soft bokeh (depth-of-field)
- *   - interacts with the mouse: particles are pushed away from the cursor and
- *     the whole field parallax-drifts toward it
+ *   - magnifying lens on pointer: particles near cursor grow brighter and larger
  *   - honours prefers-reduced-motion (renders a single static frame, no loop)
  */
 
 const COUNT = 320;
 
-// Muted violet-only palette — intentional, not a rainbow.
+// Violet-dominant palette with mint green accent.
 const PALETTE = [
   new THREE.Color("#6d5dfc"), // brand violet
   new THREE.Color("#8b5cf6"), // violet
   new THREE.Color("#4c3ad6"), // deep violet
   new THREE.Color("#a78bfa"), // soft lilac
+  new THREE.Color("#2dd4bf"), // mint teal accent
+  new THREE.Color("#34d399"), // emerald mint accent
 ];
+// Mint appears with ~20% probability to be accent, not dominant
+const PALETTE_WEIGHTS = [0.28, 0.22, 0.18, 0.22, 0.05, 0.05];
+
+function pickPaletteColor(): THREE.Color {
+  const r = Math.random();
+  let acc = 0;
+  for (let i = 0; i < PALETTE_WEIGHTS.length; i++) {
+    acc += PALETTE_WEIGHTS[i];
+    if (r < acc) return PALETTE[i];
+  }
+  return PALETTE[0];
+}
 
 const VERT = /* glsl */ `
   uniform float uTime;
-  uniform vec2  uMouse;      // clip-space -1..1
+  uniform vec2  uMouse;       // clip-space -1..1
   uniform float uMouseActive;
   uniform float uPixelRatio;
   uniform float uAspect;
@@ -40,6 +53,7 @@ const VERT = /* glsl */ `
   varying float vFocus;
   varying float vAlpha;
   varying float vFlicker;
+  varying float vMouseBoost; // 0..1, how close to cursor
 
   void main() {
     vColor = aColor;
@@ -56,30 +70,28 @@ const VERT = /* glsl */ `
     vec4 mvPosition = modelViewMatrix * vec4(p, 1.0);
     gl_Position = projectionMatrix * mvPosition;
 
-    // --- pointer repulsion (in clip space) --------------------------------
+    // --- magnifying lens effect (replaces black-hole push) ----------------
     vec2 ndc = gl_Position.xy / gl_Position.w;
     vec2 toMouse = ndc - uMouse;
     toMouse.x *= uAspect;
     float d = length(toMouse);
-    float radius = 0.55;
-    float force = smoothstep(radius, 0.0, d) * uMouseActive;
-    // nearer-to-camera (higher focus) particles react more → parallax feel
-    vec2 push = normalize(toMouse + 1e-4) * force * (0.16 + aFocus * 0.20);
-    gl_Position.xy += push * gl_Position.w;
+    float lensRadius = 0.42;
+    float lensFactor  = smoothstep(lensRadius, 0.0, d) * uMouseActive;
+    vMouseBoost = lensFactor;
 
     // --- size: blurred particles are much larger (bokeh) ------------------
     float focusSize = mix(3.4, 1.0, aFocus);
-    gl_PointSize = aSize * focusSize * uPixelRatio * (300.0 / -mvPosition.z);
+    // Particles within the lens radius grow larger — magnifying glass feel
+    float sizeBoost = 1.0 + lensFactor * 2.2 * (0.5 + aFocus * 0.5);
+    gl_PointSize = aSize * focusSize * uPixelRatio * (300.0 / -mvPosition.z) * sizeBoost;
 
     // blurred particles are dimmer so they read as out-of-focus depth
     vAlpha = mix(0.10, 0.55, aFocus);
 
     // --- per-particle flicker / sparkle -----------------------------------
-    // Each particle gets its own rate + phase so they shimmer independently.
     float flickerRate  = 2.5 + aSeed * 6.0;           // 2.5–8.5 Hz
     float flickerPhase = aSeed * 10.9956;              // spread phases
     float rawFlicker   = 0.55 + 0.45 * sin(uTime * flickerRate + flickerPhase);
-    // Bokeh halos breathe very softly; crisp stars sparkle hard.
     float softFlicker  = 0.88 + 0.12 * sin(uTime * flickerRate * 0.25 + flickerPhase);
     vFlicker = mix(softFlicker, rawFlicker, aFocus);
   }
@@ -91,10 +103,14 @@ const FRAG = /* glsl */ `
   varying float vFocus;
   varying float vAlpha;
   varying float vFlicker;
+  varying float vMouseBoost;
 
   void main() {
     vec2 pc   = gl_PointCoord - vec2(0.5); // centered, range [-0.5, 0.5]
     float dist = length(pc) * 2.0;          // 0 = center, ~1 = edge
+
+    // Lens brightness boost: particles near the cursor glow brighter
+    float brightBoost = 1.0 + vMouseBoost * 1.6;
 
     if (vFocus > 0.35) {
       // ── Crisp star particle: draw as sparkle cross (+ shape) ──────────
@@ -115,15 +131,17 @@ const FRAG = /* glsl */ `
 
       float brightness = max(arm * 0.75, core);
       vec3  col  = vColor + core * 0.65;   // white-hot centre
-      float alpha = brightness * vAlpha * vFlicker;
+      col = min(col * brightBoost, 1.0);   // magnify brightness
+      float alpha = brightness * vAlpha * vFlicker * min(brightBoost, 2.0);
       gl_FragColor = vec4(col, alpha);
     } else {
       // ── Bokeh / blurred depth-of-field haze — soft circle, gentle flicker ──
       if (dist > 1.0) discard;
       float edge = pow(1.0 - dist, mix(1.0, 3.2, vFocus));
       float core = pow(1.0 - dist, 6.0) * vFocus;
-      float alpha = (edge * 0.55 + core * 0.4) * vAlpha * vFlicker;
       vec3  col  = vColor + core * 0.3;
+      col = min(col * brightBoost, 1.0);
+      float alpha = (edge * 0.55 + core * 0.4) * vAlpha * vFlicker * min(brightBoost, 2.0);
       gl_FragColor = vec4(col, alpha);
     }
   }
@@ -188,9 +206,7 @@ export default function ParticleField() {
         ? 14 + Math.random() * 28  // large bokeh = galaxy cloud feel
         : 1.0 + Math.random() * 2.0;
 
-      // Even palette distribution across the muted violet tones.
-      const idx = Math.floor(Math.random() * PALETTE.length);
-      const c = PALETTE[idx];
+      const c = pickPaletteColor();
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
