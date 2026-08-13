@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import LogoMark from "./LogoMark";
 
 const links = [
   { label: "Mission", href: "#mission" },
@@ -29,16 +30,8 @@ export default function Nav() {
       }}
     >
       <nav className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a
-          href="#top"
-          className="text-xl sm:text-2xl font-bold tracking-wide uppercase"
-          style={{
-            color: "#e8e8f0",
-            letterSpacing: "0.12em",
-            fontFamily: "var(--font-space)",
-          }}
-        >
-          JNK<span style={{ color: "#6d5dfc" }}>.</span>
+        <a href="#top" className="text-2xl sm:text-3xl" aria-label="JNK Momentum — home">
+          <LogoMark />
         </a>
 
         <div className="hidden sm:flex items-center gap-8">

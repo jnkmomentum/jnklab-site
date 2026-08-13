@@ -81,3 +81,76 @@ body {
   box-shadow: 0 0 40px rgba(109, 93, 252, 0.08), 0 8px 32px rgba(0, 0, 0, 0.3);
   transform: translateY(-3px);
 }
+
+/* ── Logo "impact dot" — a point-of-impact mark with a particle burst ──────
+   Used in <LogoMark>: a glowing core, expanding shockwave rings, and a ring
+   of sparks radiating outward. Loops subtly; frozen to a calm glow under
+   prefers-reduced-motion (handled by the global reduced-motion rule). */
+.impact {
+  position: relative;
+  display: inline-block;
+  width: 0.62em;
+  height: 0.62em;
+  vertical-align: baseline;
+  margin-left: 0.06em;
+}
+.impact-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.34em;
+  height: 0.34em;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 35% 35%, #c4b5fd 0%, #6d5dfc 55%, #4c3ad6 100%);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 6px 1px rgba(109, 93, 252, 0.75),
+    0 0 14px 3px rgba(109, 93, 252, 0.4);
+  animation: impact-core-pulse 2.8s ease-in-out infinite;
+}
+.impact-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 9999px;
+  border: 1px solid rgba(139, 122, 252, 0.6);
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+  animation: impact-ring 2.8s ease-out infinite;
+}
+.impact-ring.delay { animation-delay: 1.4s; }
+.impact-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0.08em;
+  height: 0.08em;
+  margin: -0.04em 0 0 -0.04em;
+  border-radius: 9999px;
+  background: #a78bfa;
+  opacity: 0;
+  transform: rotate(var(--a)) translateX(0);
+  animation: impact-spark 2.8s ease-out infinite;
+}
+
+@keyframes impact-core-pulse {
+  0%, 100% {
+    box-shadow: 0 0 6px 1px rgba(109, 93, 252, 0.7),
+      0 0 12px 2px rgba(109, 93, 252, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 9px 2px rgba(139, 122, 252, 0.95),
+      0 0 20px 5px rgba(109, 93, 252, 0.55);
+  }
+}
+@keyframes impact-ring {
+  0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 0.55; }
+  70%  { opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(2.4); opacity: 0; }
+}
+@keyframes impact-spark {
+  0%   { opacity: 0; transform: rotate(var(--a)) translateX(0.05em); }
+  15%  { opacity: 0.9; }
+  100% { opacity: 0; transform: rotate(var(--a)) translateX(0.5em); }
+}
