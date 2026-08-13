@@ -26,12 +26,12 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   title: "jnklab — Product innovation & consulting",
   description:
-    "Product innovation and consulting for early-stage teams. We help you find the idea worth building — then ship the MVP that proves it.",
+    "Product innovation and consulting for companies building early-stage products. We help you find the idea worth building — then ship the MVP that proves it. AI woven into how the work actually gets done, not bolted on as a chatbot.",
   metadataBase: new URL("https://jnklab.com"),
   openGraph: {
     title: "jnklab — Product innovation & consulting",
     description:
-      "Product innovation and consulting for early-stage teams. We help you find the idea worth building — then ship the MVP that proves it.",
+      "Product innovation and consulting for companies building early-stage products. We help you find the idea worth building — then ship the MVP that proves it. AI woven into how the work actually gets done, not bolted on as a chatbot.",
     url: "https://jnklab.com",
     siteName: "jnklab",
     locale: "en_US",

@@ -8,7 +8,7 @@ const values = [
     body: "Early-stage momentum beats late-stage polish.",
   },
   {
-    title: "Innovation with an edge",
+    title: "Forward innovation",
     body: "We hunt the non-obvious, high-leverage move.",
   },
   {
@@ -53,8 +53,8 @@ export default function Mission() {
             className="reveal reveal-delay-2 text-lg leading-relaxed"
             style={{ color: "#7878a0" }}
           >
-            We partner with founders and teams to find the valuable, innovative
-            thing — and get it into real users&apos; hands fast. Early-stage and MVPs
+            We partner with companies and teams to find the valuable, innovative
+            thing — and get it into real users&apos; hands fast. Early-stage products and MVPs
             are our home turf: momentum and validated outcomes over polish. And
             we rethink how people and teams work with AI, so both the product
             and the way you build it move faster.

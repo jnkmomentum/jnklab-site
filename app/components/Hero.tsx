@@ -64,7 +64,7 @@ export default function Hero() {
           className="text-lg sm:text-xl leading-relaxed max-w-xl mx-auto mb-10"
           style={{ color: "#7878a0" }}
         >
-          Product innovation and consulting for early-stage teams. We help you
+          Product innovation and consulting for companies building early-stage products. We help you
           find the idea worth building — then ship the MVP that proves it.{" "}
           <span style={{ color: "#b0b0c8" }}>
             AI woven into how the work actually gets done, not bolted on as a
