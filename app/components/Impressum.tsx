@@ -101,7 +101,7 @@ export default function Impressum() {
             <p className="font-medium mb-2" style={{ color: "#9090b8" }}>
               Datenschutzhinweis
             </p>
-            <p style={{ color: "#6060808" }}>
+            <p style={{ color: "#60608a" }}>
               Diese Website verwendet keine Cookies und erhebt keine
               personenbezogenen Daten. Beim Aufruf dieser Website werden
               technisch bedingt Server-Logs gespeichert (IP-Adresse, Zeitstempel,
