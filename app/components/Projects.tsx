@@ -132,9 +132,11 @@ export default function Projects() {
                 }}
               >
                 {/* Branded cover asset (NIC-5170) — imagery pulled from each
-                    product's live site; Dawn uses a branded abstract graphic */}
+                    product's live site; Dawn uses a branded abstract graphic.
+                    Covers are 2:1 (800×400); the slot renders ~2:1 so the
+                    framing reads as a hero, not an extreme letterbox strip. */}
                 <div
-                  className="relative w-full h-36 overflow-hidden"
+                  className="relative w-full h-52 sm:h-64 overflow-hidden"
                   style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}
                   aria-hidden="true"
                 >
