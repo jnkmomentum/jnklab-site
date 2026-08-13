@@ -22,26 +22,16 @@ export default function Impressum() {
               Angaben gemäß § 5 TMG
             </p>
             <p style={{ color: "#7878a0" }}>
-              Jonas Kwaschik<br />
-              (Einzelunternehmer, handelnd als JNK Momentum / jnklab)
-            </p>
-          </div>
-
-          <div>
-            <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
-              Geschäftsadresse
-            </p>
-            {/* PLACEHOLDER: Replace with confirmed business address before DNS cutover */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              [PLACEHOLDER: Straße und Hausnummer]<br />
-              [PLACEHOLDER: PLZ und Ort]<br />
+              JNK Momentum UG (haftungsbeschränkt)<br />
+              Thomasiusstr. 25<br />
+              10557 Berlin<br />
               Deutschland
             </p>
           </div>
 
           <div>
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
-              Inhaber
+              Geschäftsführung
             </p>
             <p style={{ color: "#7878a0" }}>
               Jonas Kwaschik
@@ -55,10 +45,10 @@ export default function Impressum() {
             <p>
               E-Mail:{" "}
               <a
-                href="mailto:hello@jnklab.com"
+                href="mailto:contact@jnklab.com"
                 style={{ color: "#9b8ffd" }}
               >
-                hello@jnklab.com
+                contact@jnklab.com
               </a>
             </p>
           </div>
@@ -67,10 +57,8 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Handelsregister
             </p>
-            {/* PLACEHOLDER: Fill in if/when company is registered as UG or GmbH */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              Nicht eingetragen (Einzelunternehmer)<br />
-              <span style={{ fontSize: "0.8em" }}>[PLACEHOLDER: aktualisieren bei UG/GmbH-Gründung]</span>
+            <p style={{ color: "#7878a0" }}>
+              Amtsgericht Berlin (Charlottenburg), HRB 150638 B
             </p>
           </div>
 
@@ -78,9 +66,8 @@ export default function Impressum() {
             <p className="font-medium mb-1" style={{ color: "#9090b8" }}>
               Umsatzsteuer-ID
             </p>
-            {/* PLACEHOLDER: Fill in once VAT registration is complete */}
-            <p className="italic" style={{ color: "#4a4a68" }}>
-              [PLACEHOLDER: USt-IdNr. gemäß § 27a UStG: DE…]
+            <p style={{ color: "#7878a0" }}>
+              DE289447986 (gemäß § 27a UStG)
             </p>
           </div>
 
@@ -90,8 +77,8 @@ export default function Impressum() {
             </p>
             <p style={{ color: "#7878a0" }}>
               Jonas Kwaschik<br />
-              {/* PLACEHOLDER: Add confirmed address below once available */}
-              <span className="italic" style={{ color: "#4a4a68" }}>[PLACEHOLDER: Adresse wie oben]</span>
+              JNK Momentum UG (haftungsbeschränkt)<br />
+              Thomasiusstr. 25, 10557 Berlin
             </p>
           </div>
 
@@ -112,10 +99,10 @@ export default function Impressum() {
             <p className="mt-3" style={{ color: "#60608a" }}>
               Für Anfragen zum Datenschutz wenden Sie sich bitte an:{" "}
               <a
-                href="mailto:hello@jnklab.com"
+                href="mailto:contact@jnklab.com"
                 style={{ color: "#9b8ffd" }}
               >
-                hello@jnklab.com
+                contact@jnklab.com
               </a>
             </p>
           </div>
