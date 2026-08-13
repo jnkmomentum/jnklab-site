@@ -15,6 +15,16 @@ export default function Hero() {
       {/* WebGL particle field (three.js) — colorful, depth-blurred, mouse-reactive */}
       <ParticleField />
 
+      {/* Dark radial scrim behind hero text — ensures readability over particles */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[5]"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 55% at 50% 48%, rgba(6,6,9,0.55) 0%, transparent 75%)",
+        }}
+        aria-hidden="true"
+      />
+
       {/* Subtle grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none"

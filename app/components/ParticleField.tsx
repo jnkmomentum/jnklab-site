@@ -14,15 +14,13 @@ import * as THREE from "three";
  *   - honours prefers-reduced-motion (renders a single static frame, no loop)
  */
 
-const COUNT = 2200;
+const COUNT = 320;
 
-// Brand-forward palette. First colour (violet) is weighted most.
+// Muted violet-only palette — intentional, not a rainbow.
 const PALETTE = [
   new THREE.Color("#6d5dfc"), // brand violet
   new THREE.Color("#8b5cf6"), // violet
-  new THREE.Color("#22d3ee"), // cyan
-  new THREE.Color("#d946ef"), // magenta
-  new THREE.Color("#3b82f6"), // blue
+  new THREE.Color("#4c3ad6"), // deep violet
   new THREE.Color("#a78bfa"), // soft lilac
 ];
 
@@ -73,7 +71,7 @@ const VERT = /* glsl */ `
     gl_PointSize = aSize * focusSize * uPixelRatio * (300.0 / -mvPosition.z);
 
     // blurred particles are dimmer so they read as out-of-focus depth
-    vAlpha = mix(0.28, 0.9, aFocus);
+    vAlpha = mix(0.10, 0.55, aFocus);
   }
 `;
 
@@ -91,8 +89,8 @@ const FRAG = /* glsl */ `
     float edge = pow(1.0 - dist, mix(1.0, 3.2, vFocus));
     float core = pow(1.0 - dist, 6.0) * vFocus; // extra sparkle on focused pts
 
-    float alpha = (edge * 0.75 + core * 0.6) * vAlpha;
-    vec3 col = vColor + core * 0.5; // hot centre lifts toward white
+    float alpha = (edge * 0.55 + core * 0.4) * vAlpha;
+    vec3 col = vColor + core * 0.3; // hot centre lifts toward white
     gl_FragColor = vec4(col, alpha);
   }
 `;
@@ -147,21 +145,17 @@ export default function ParticleField() {
 
       seeds[i] = Math.random();
 
-      // ~38% blurred (low focus) bokeh, rest crisp
-      const blurred = Math.random() < 0.38;
+      // ~65% blurred (low focus) bokeh for large galaxy-cloud halos
+      const blurred = Math.random() < 0.65;
       focuses[i] = blurred
-        ? Math.random() * 0.28
-        : 0.6 + Math.random() * 0.4;
+        ? Math.random() * 0.22
+        : 0.55 + Math.random() * 0.45;
       sizes[i] = blurred
-        ? 6 + Math.random() * 10
-        : 1.4 + Math.random() * 2.6;
+        ? 14 + Math.random() * 28  // large bokeh = galaxy cloud feel
+        : 1.0 + Math.random() * 2.0;
 
-      // Weight the palette toward the brand violet (indices 0-1).
-      const r = Math.random();
-      const idx =
-        r < 0.5
-          ? Math.floor(Math.random() * 2)
-          : 2 + Math.floor(Math.random() * (PALETTE.length - 2));
+      // Even palette distribution across the muted violet tones.
+      const idx = Math.floor(Math.random() * PALETTE.length);
       const c = PALETTE[idx];
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
