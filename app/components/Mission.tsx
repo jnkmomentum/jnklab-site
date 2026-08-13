@@ -53,8 +53,7 @@ export default function Mission() {
             className="reveal reveal-delay-2 text-lg leading-relaxed"
             style={{ color: "#7878a0" }}
           >
-            We partner with companies and teams to find the valuable, innovative
-            thing — and get it into real users&apos; hands fast. Early-stage products and MVPs
+            We partner with companies and teams to find the highest-leverage idea — and get it into real users&apos; hands fast. Early-stage products and MVPs
             are our home turf: momentum and validated outcomes over polish. And
             we rethink how people and teams work with AI, so both the product
             and the way you build it move faster.
