@@ -58,7 +58,7 @@ export default function Nav() {
         </div>
 
         <a
-          href="mailto:hello@jnklab.com"
+          href="mailto:contact@jnklab.com"
           className="hidden sm:inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full transition-all duration-200"
           style={{
             border: "1px solid rgba(109, 93, 252, 0.4)",

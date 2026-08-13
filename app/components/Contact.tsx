@@ -38,7 +38,7 @@ export default function Contact() {
 
         <div className="reveal reveal-delay-3">
           <a
-            href="mailto:hello@jnklab.com"
+            href="mailto:contact@jnklab.com"
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full text-base font-medium transition-all duration-300"
             style={{
               background: "rgba(109, 93, 252, 0.1)",
@@ -74,11 +74,8 @@ export default function Contact() {
               <rect width="20" height="16" x="2" y="4" rx="2" />
               <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
             </svg>
-            hello@jnklab.com
+            contact@jnklab.com
           </a>
-
-          {/* Note: currently using hello@jnklab.com as a professional contact placeholder.
-              Switch to a verified domain email once MX records are live on jnklab.com. */}
         </div>
       </div>
     </section>
