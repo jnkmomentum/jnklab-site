@@ -113,32 +113,37 @@ const FRAG = /* glsl */ `
     float brightBoost = 1.0 + vMouseBoost * 1.6;
 
     if (vFocus > 0.35) {
-      // ── Crisp star particle: draw as sparkle cross (+ shape) ──────────
-      float aw = 0.065;                     // arm half-width in normalised coords
-      bool inH   = abs(pc.y) < aw;         // inside horizontal arm
-      bool inV   = abs(pc.x) < aw;         // inside vertical arm
-      bool inDot = dist < 0.38;            // small central glow disk
+      // ── Crisp star particle: arm narrows near cursor for a sharper spike ─
+      float aw = mix(0.065, 0.036, vMouseBoost); // tighter arms = sharper cross
+      bool inH   = abs(pc.y) < aw;
+      bool inV   = abs(pc.x) < aw;
+      bool inDot = dist < 0.38;
 
       if (!inH && !inV && !inDot) discard;
 
-      // Arm brightness falls off along arm length away from centre
-      float armH = inH ? max(0.0, 1.0 - abs(pc.x) * 3.2) : 0.0;
-      float armV = inV ? max(0.0, 1.0 - abs(pc.y) * 3.2) : 0.0;
+      // Steeper falloff along arm when boosted (arms feel more needle-like)
+      float falloff = mix(3.2, 5.8, vMouseBoost);
+      float armH = inH ? max(0.0, 1.0 - abs(pc.x) * falloff) : 0.0;
+      float armV = inV ? max(0.0, 1.0 - abs(pc.y) * falloff) : 0.0;
       float arm  = max(armH, armV);
 
-      // Very tight, hot centre core
-      float core = pow(max(0.0, 1.0 - dist * 2.8), 3.0);
+      // Harder core exponent near cursor = tighter, hotter pinpoint
+      float corePow = mix(3.0, 6.0, vMouseBoost);
+      float core = pow(max(0.0, 1.0 - dist * 2.8), corePow);
 
       float brightness = max(arm * 0.75, core);
       vec3  col  = vColor + core * 0.65;   // white-hot centre
-      col = min(col * brightBoost, 1.0);   // magnify brightness
+      col = min(col * brightBoost, 1.0);
       float alpha = brightness * vAlpha * vFlicker * min(brightBoost, 2.0);
       gl_FragColor = vec4(col, alpha);
     } else {
-      // ── Bokeh / blurred depth-of-field haze — soft circle, gentle flicker ──
+      // ── Bokeh — transitions from soft haze to a crisp point near cursor ──
       if (dist > 1.0) discard;
-      float edge = pow(1.0 - dist, mix(1.0, 3.2, vFocus));
-      float core = pow(1.0 - dist, 6.0) * vFocus;
+      // Harder edge exponent when boosted: bokeh snaps into a sharp disc
+      float edgePow = mix(1.0 + vFocus * 2.2, 5.5, vMouseBoost);
+      float edge = pow(1.0 - dist, edgePow);
+      float corePow = mix(6.0, 11.0, vMouseBoost);
+      float core = pow(1.0 - dist, corePow) * mix(vFocus, 1.0, vMouseBoost);
       vec3  col  = vColor + core * 0.3;
       col = min(col * brightBoost, 1.0);
       float alpha = (edge * 0.55 + core * 0.4) * vAlpha * vFlicker * min(brightBoost, 2.0);

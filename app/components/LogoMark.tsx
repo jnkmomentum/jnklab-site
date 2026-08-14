@@ -1,10 +1,3 @@
-/**
- * JNK wordmark with the "." reimagined as a point of impact (NIC-5168):
- * a glowing violet core with expanding shockwave rings and a ring of sparks
- * radiating outward — echoing the hero particle field. Pure CSS, no JS/runtime
- * cost; the animation calms to a static glow under prefers-reduced-motion.
- */
-
 // Each spark gets its own angle + staggered delay for organic, non-mechanical feel
 const SPARKS = [
   { angle: 0, delay: 0 },
@@ -29,8 +22,6 @@ export default function LogoMark() {
     >
       JNK
       <span className="impact" aria-hidden="true">
-        <span className="impact-ring" />
-        <span className="impact-ring delay" />
         {SPARKS.map(({ angle, delay }) => (
           <span
             key={angle}
